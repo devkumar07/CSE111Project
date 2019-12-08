@@ -22,11 +22,6 @@ if db_connection:
 	print("Successfully Established connection with SQLite3")
 	print("\n\n")
 
-<<<<<<< HEAD
-=======
-
-################ Running query in sqlite ################
->>>>>>> 26ce3a529c5d2a29170d79fafaee9b34d16ae7a1
 # Inserting college information to college info
 def insert_college_info():
     query_1 = "insert into College_info (c_id,c_name, c_citykey, c_type, c_attendance, c_genderRatio, c_rankNation, c_avgscholarship) \
