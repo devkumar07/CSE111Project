@@ -100,41 +100,45 @@ def find_distinct_scholarships():
     query_10 = "select s_type, count(*) \
            from scholarships \
            group by s_type"
-<<<<<<< HEAD
-    return query_10
-
-query = find_distinct_scholarships() # Can be replaced by select_query
-=======
  
-# Find all the transfer students with gpa greater than 3.0 and engineering major
+def highgpa_Engr():
+    # Find all the transfer students with gpa greater than 3.0 and engineering major
  
-query_11 = "SELECT t_id \
+    query_11 = "SELECT t_id \
            FROM transfer_Acceptances, major \
            WHERE t_gpa > 3.0 \
            AND m_id = t_mid \
            AND m_cid = t_cid \
            AND m_department LIKE 'School of Engineering';"
+    return query_11
+
+def delete_lowScholarships():
+    # Delete tuples in scholarships less than 1000
  
-# Delete tuples in scholarships less than 1000
- 
-query_12 = "DELETE FROM scholarships \
+    query_12 = "DELETE FROM scholarships \
            WHERE s_amt < 1000;"
+    return query_12
+
+def increase_rentCA():
+    # increase california rents by 10%
  
-# increase california rents by 10%
- 
-query_13 = "UPDATE city \
+    query_13 = "UPDATE city \
            SET ci_rent = ci_rent * 1.1 \
            WHERE ci_state LIKE 'CA';"
- 
-# insert new scholarship
- 
-query_14 = "INSERT into scholarships \
-           values('bobcat grant', 'School of Engineering; School of Social Sciences, Humanities and Arts; School of Natural Science', 6, 'Financial Aid', 1000, 2019-10-01, 2);"
- 
+    return query_13
 
- # find all the female incoming and transfer students
+def insert_newScholarship():
+    # insert new scholarship
  
-query_15 = "SELECT t_id student, 'transfer' type \
+    query_14 = "INSERT into scholarships \
+           values('bobcat grant', 'School of Engineering; School of Social Sciences, Humanities and Arts; School of Natural Science', 6, 'Financial Aid', 1000, 2019-10-01, 2);"
+    return query_14
+
+
+def find_femaleStudents():
+     # find all the female incoming and transfer students
+ 
+    query_15 = "SELECT t_id student, 'transfer' type \
            FROM transfer_Acceptances \
            WHERE t_gender LIKE 'female' \
            \
@@ -143,17 +147,21 @@ query_15 = "SELECT t_id student, 'transfer' type \
            SELECT i_id student, 'incoming' type \
            FROM incoming_acceptances \
            WHERE i_gender LIKE 'female';"
+    return query_15
 
-# select colleges outside of california
+def Colleges_out_CA():
+     # select colleges outside of california
  
-query_16 = "SELECT c_id \
+    query_16 = "SELECT c_id \
            FROM College_info, city \
            WHERE c_citykey = ci_key \
            AND ci_state <> 'CA';"
+    return query_16
 
-# how many students does each major has?
+def count_per_major():
+     # how many students does each major has?
  
-query_17 = "SELECT A.m_name, count1 + count2 count \
+    query_17 = "SELECT A.m_name, count1 + count2 count \
            FROM (SELECT m_name, count(*) count1 \
            FROM incoming_acceptances, major \
            WHERE m_id = i_majorid \
@@ -166,29 +174,28 @@ query_17 = "SELECT A.m_name, count1 + count2 count \
                AND m_cid = t_cid \
            GROUP BY m_name) B \
            WHERE A.m_name = B.m_name;"
+    return query_17
 
-#  delete  incoming students if they enrolled in 2019
+def delete_students_2019():
+     #  delete  incoming students if they enrolled in 2019
  
-query_18 = "DELETE FROM incoming_acceptances WHERE i_year LIKE '%2019%';"
+    query_18 = "DELETE FROM incoming_acceptances WHERE i_year LIKE '%2019%';"
+    return query_18
 
-# find BS majors
+def bs_majors():
+    # find BS majors
  
-query_19 = "SELECT m_name \
+    query_19 = "SELECT m_name \
            FROM major \
            WHERE m_degreetype LIKE 'Bachelor of Science';"
+    return query_19
 
-# find all colleges with gender ratio higher than 0.6 and all offered majors gender ratio above 0.6
-query_20 = "SELECT distinct c_id FROM College_info, major WHERE c_genderRatio > 0.6 AND c_id = m_cid AND m_genderRatio > 0.6;"
+def high_genderRatio():
+    # find all colleges with gender ratio higher than 0.6 and all offered majors gender ratio above 0.6
+    query_20 = "SELECT distinct c_id FROM College_info, major WHERE c_genderRatio > 0.6 AND c_id = m_cid AND m_genderRatio > 0.6;"
+    return query_20
 
-
-
-
-
-
-
-
-query = query_20 # Can be replaced by select_query
->>>>>>> 26ce3a529c5d2a29170d79fafaee9b34d16ae7a1
+query = high_genderRatio() # Can be replaced by select_query
 
 db_cursor = db_connection.cursor() # Creating a cursor from db_connection
 
