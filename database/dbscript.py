@@ -100,6 +100,7 @@ def find_distinct_scholarships():
     query_10 = "select s_type, count(*) \
            from scholarships \
            group by s_type"
+    return query_10
  
 def highgpa_Engr():
     # Find all the transfer students with gpa greater than 3.0 and engineering major
