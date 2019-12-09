@@ -1,4 +1,6 @@
-import os
+import os.path
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "CollegeDB.db")
 import sqlite3   ## Include SQLite package 
 
 
@@ -8,7 +10,7 @@ db_connection = None # Define the connection parameter
 db_name = "CollegeDB.db"	# Specify the full path of Database file
 
 try:
-	db_connection = sqlite3.connect(db_name)   	# This line of code will try to 
+	db_connection = sqlite3.connect(db_path, check_same_thread=False)   	# This line of code will try to 
 												# connect sqlite database with 
 												# python and assign a cursor to 
 												# connection parameter specified 
@@ -22,11 +24,19 @@ if db_connection:
 	print("Successfully Established connection with SQLite3")
 	print("\n\n")
 
+def get_main_table():
+    q = "select * from college_info"
+    result = get_query_result(q)
+    return result
+
+
 # Inserting college information to college info
 def insert_college_info():
     query_1 = "insert into College_info (c_id,c_name, c_citykey, c_type, c_attendance, c_genderRatio, c_rankNation, c_avgscholarship) \
             values (6,'UC San Diego', 6, 'public', 4687, 0.60, 3, 2876)"
-    return query_1
+    result = get_query_result(query_1)
+    return result
+
 
 # Getting scholarship name and amt for UC Merced
 def get_scholarship_merced():
@@ -35,7 +45,9 @@ def get_scholarship_merced():
            where s_collegeID = c_id \
            and c_id = m_cid \
            and c_name like 'UC Merced'"
-    return query_2
+    result = get_query_result(query_2)
+    return result
+
 
 # How many incoming students are in UC Merced
 def get_incoming_students_merced():
@@ -43,12 +55,15 @@ def get_incoming_students_merced():
            from ( \
                select * from Incoming_acceptances,College_info \
                where i_cid = c_id and c_name like 'uc merced')"
-    return query_3
+    result =  get_query_result(query_3)
+    return result
 
 def get_most_expensive_cityRent():
     query_4 = "select ci_name, max(ci_rent) \
            from city"
-    return query_4
+    result = get_query_result(query_4)
+    return result
+
 
 # Which college has the most number of current students?
 def get_highest_attendance():
@@ -64,14 +79,18 @@ def get_highest_attendance():
            where t_cid = c_id)M1 \
            group by M1.c_id))M2, college_info \
            where college = c_id"
-    return query_5
+    result = get_query_result(query_5)
+    return result
+
 
 # What scholarships provide grant to school of Engineering department?
 def get_grants_SOE():
     query_6 = "select count(*) \
            from scholarships \
            where s_dep like 'School of Engineering%_' or s_dep like 'School of Engineering'"
-    return query_6
+    result = get_query_result(query_6)
+    return result
+
 
 # Which private university offers the highest average scholarship?
 def get_highest_scholarship():
@@ -79,28 +98,33 @@ def get_highest_scholarship():
            from (select c_name, c_avgscholarship \
            from college_info \
            where c_type = 'Private')"
-    return query_7
+    result = get_query_result(query_7)
+    return result
+
 
 def find_avgGPA_top_3():
     query_8 = "select avg(i_gpa) \
            from incoming_acceptances, college_info \
            where i_cid = c_id \
            and c_rankNation <= 3"
-    return query_8
+    result = get_query_result(query_8)
+    return result
 
 def display_majors_university():
     query_9 = "select c_name, count(*) \
            from major, college_info \
            where c_id = m_cid \
            group by m_cid"
-    return query_9
+    result = get_query_result(query_9)
+    return result
 
 # Find how many different types of scholarships are offered in the U.S
 def find_distinct_scholarships():
     query_10 = "select s_type, count(*) \
            from scholarships \
            group by s_type"
-    return query_10
+    result = get_query_result(query_10)
+    return result
  
 def highgpa_Engr():
     # Find all the transfer students with gpa greater than 3.0 and engineering major
@@ -111,14 +135,16 @@ def highgpa_Engr():
            AND m_id = t_mid \
            AND m_cid = t_cid \
            AND m_department LIKE 'School of Engineering';"
-    return query_11
+    result = get_query_result(query_11)
+    return result
 
 def delete_lowScholarships():
     # Delete tuples in scholarships less than 1000
  
     query_12 = "DELETE FROM scholarships \
            WHERE s_amt < 1000;"
-    return query_12
+    result = get_query_result(query_12)
+    return result
 
 def increase_rentCA():
     # increase california rents by 10%
@@ -126,14 +152,16 @@ def increase_rentCA():
     query_13 = "UPDATE city \
            SET ci_rent = ci_rent * 1.1 \
            WHERE ci_state LIKE 'CA';"
-    return query_13
+    result = get_query_result(query_13)
+    return result
 
 def insert_newScholarship():
     # insert new scholarship
  
     query_14 = "INSERT into scholarships \
            values('bobcat grant', 'School of Engineering; School of Social Sciences, Humanities and Arts; School of Natural Science', 6, 'Financial Aid', 1000, 2019-10-01, 2);"
-    return query_14
+    result = get_query_result(query_14)
+    return result
 
 
 def find_femaleStudents():
@@ -148,7 +176,8 @@ def find_femaleStudents():
            SELECT i_id student, 'incoming' type \
            FROM incoming_acceptances \
            WHERE i_gender LIKE 'female';"
-    return query_15
+    result = get_query_result(query_15)
+    return result
 
 def Colleges_out_CA():
      # select colleges outside of california
@@ -157,7 +186,8 @@ def Colleges_out_CA():
            FROM College_info, city \
            WHERE c_citykey = ci_key \
            AND ci_state <> 'CA';"
-    return query_16
+    result = get_query_result(query_16)
+    return result
 
 def count_per_major():
      # how many students does each major has?
@@ -175,13 +205,15 @@ def count_per_major():
                AND m_cid = t_cid \
            GROUP BY m_name) B \
            WHERE A.m_name = B.m_name;"
-    return query_17
+    result = get_query_result(query_17)
+    return result
 
 def delete_students_2019():
      #  delete  incoming students if they enrolled in 2019
  
     query_18 = "DELETE FROM incoming_acceptances WHERE i_year LIKE '%2019%';"
-    return query_18
+    result = get_query_result(query_18)
+    return result
 
 def bs_majors():
     # find BS majors
@@ -189,25 +221,33 @@ def bs_majors():
     query_19 = "SELECT m_name \
            FROM major \
            WHERE m_degreetype LIKE 'Bachelor of Science';"
-    return query_19
+    result = get_query_result(query_19)
+    return result
 
 def high_genderRatio():
     # find all colleges with gender ratio higher than 0.6 and all offered majors gender ratio above 0.6
     query_20 = "SELECT distinct c_id FROM College_info, major WHERE c_genderRatio > 0.6 AND c_id = m_cid AND m_genderRatio > 0.6;"
-    return query_20
+    result = get_query_result(query_20)
+    return result
 
-query = high_genderRatio() # Can be replaced by select_query
+def get_query_result(query1):
 
-db_cursor = db_connection.cursor() # Creating a cursor from db_connection
+    query = query1 # Can be replaced by select_query
 
-db_cursor.execute(query)	# Running the query
+    db_cursor = db_connection.cursor() # Creating a cursor from db_connection
 
-db_connection.commit()
+    db_cursor.execute(query)	# Running the query
 
-result = db_cursor.fetchall() # Get results from connection object to a data-structure
-print("Returned data-structure is a : ",type(result))
+    db_connection.commit()
 
-print("#################### Query result ####################")
-for row in result:
-	print(row)
+    result = db_cursor.fetchall() # Get results from connection object to a data-structure
+
+    print("Returned data-structure is a : ",type(result))
+
+    print("#################### Query result ####################")
+    for row in result:
+        print(row)
+    return result
+
+    
 
