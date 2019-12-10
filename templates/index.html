@@ -5,10 +5,43 @@
             <script src="/static/jquery/jquery.js"></script>
             <script src="/static/bootstrap/bootstrap.min.js"></script>
             <script src="/static/main.js"></script>
+            <style>
+                    #college {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+                    
+                    #college td, #customers th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+                    
+                    #college tr:nth-child(even){background-color: #f2f2f2;}
+                    
+                    #college tr:hover {background-color: #ddd;}
+                    
+                    #college th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #4CAF50;
+                      color: white;
+                    }
+                    div.container {
+                      margin-top: 10%;
+                    }
+                    #btn1{
+                        margin-top: 3%;
+                    }
+                    #college{
+                      margin-top: 3%;
+                    }
+                    </style>
     </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Web App</a>
+            <a class="navbar-brand" href="#">Database of Colleges in the U.S</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,8 +49,11 @@
 
     <main role="main">
         <div class="container">
+
                 <h1>Database of Colleges in the U.S</h1>
                 <table id="college"></table>
+
+                <button id ="btn1"> Query 2</button>
         </div>
     </main>
 </body>

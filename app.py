@@ -16,5 +16,12 @@ def init():
     output = json.dumps(get_main_table())
     return output
 
+@app.route('/test', methods=['GET'])
+def test():
+    o = get_main_table()
+    print("The type is ", type(o))
+    output = json.dumps(get_scholarship_merced())
+    return output
+
 if __name__ == '__main__':
     app.run(debug=False, threaded=True, host= '0.0.0.0')
