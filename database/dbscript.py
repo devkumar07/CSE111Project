@@ -67,8 +67,8 @@ def get_most_expensive_cityRent():
 
 # Which college has the most number of current students?
 def get_highest_attendance():
-    query_5 = "select c_name \
-           from(select c_id as college, Max(att) \
+    query_5 = "select c_name, m\
+           from(select c_id as college, Max(att) as m\
            from(select M1.c_id, count(*) as att \
            from(select i_id, c_id \
            from incoming_acceptances, college_info \
@@ -85,7 +85,7 @@ def get_highest_attendance():
 
 # What scholarships provide grant to school of Engineering department?
 def get_grants_SOE():
-    query_6 = "select count(*) \
+    query_6 = "select s_name \
            from scholarships \
            where s_dep like 'School of Engineering%_' or s_dep like 'School of Engineering'"
     result = get_query_result(query_6)
@@ -103,10 +103,10 @@ def get_highest_scholarship():
 
 
 def find_avgGPA_top_3():
-    query_8 = "select avg(i_gpa) \
+    query_8 = "select c_name, avg(i_gpa) \
            from incoming_acceptances, college_info \
            where i_cid = c_id \
-           and c_rankNation <= 3"
+           and c_rankNation <= 3 group by c_name"
     result = get_query_result(query_8)
     return result
 
@@ -182,7 +182,7 @@ def find_femaleStudents():
 def Colleges_out_CA():
      # select colleges outside of california
  
-    query_16 = "SELECT c_id \
+    query_16 = "SELECT c_name \
            FROM College_info, city \
            WHERE c_citykey = ci_key \
            AND ci_state <> 'CA';"
@@ -226,7 +226,7 @@ def bs_majors():
 
 def high_genderRatio():
     # find all colleges with gender ratio higher than 0.6 and all offered majors gender ratio above 0.6
-    query_20 = "SELECT distinct c_id FROM College_info, major WHERE c_genderRatio > 0.6 AND c_id = m_cid AND m_genderRatio > 0.6;"
+    query_20 = "SELECT distinct c_name, c_genderRatio FROM College_info, major WHERE c_genderRatio > 0.6 AND c_id = m_cid AND m_genderRatio > 0.6;"
     result = get_query_result(query_20)
     return result
 
