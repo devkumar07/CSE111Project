@@ -6,7 +6,6 @@ function createGrid(data){
 
 		for (var j in data[i]){
             cr = cr + "<td id=\"" + i.toString()+ "-" + j.toString() + "\">"+data[i][j]+"</td>";
-            //cr = cr + "<td id=\"" + i.toString()+ "-" + j.toString() + "\">";
 		}
 
 		cr = cr + "</tr>\n";
@@ -17,21 +16,21 @@ function createGrid(data){
 	$("#college").html(final);
 
 }
-function createGrid1(data){
+function generateQuery(data, title){
     var result = "";
 	for (var i in data){
         cr = "<tr>";
 
 		for (var j in data[i]){
             cr = cr + "<td id=\"" + i.toString()+ "-" + j.toString() + "\">"+data[i][j]+"</td>";
-            //cr = cr + "<td id=\"" + i.toString()+ "-" + j.toString() + "\">";
 		}
 
 		cr = cr + "</tr>\n";
 		result = result + cr;
     }
-
-	$("#college").html(result);
+    
+    $("#college").html(result);
+    $("#title").html(title);
 
 }
 $(document).ready(function(){
@@ -40,124 +39,144 @@ $(document).ready(function(){
         var data = JSON.parse(response);
         createGrid(data);
     });
-    $("#btn20").click(function(){
+    $("#btn1").click(function(){
         $.get("/q1",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
-        });
-    });
-    $("#btn1").click(function(){
-        $.get("/q2",{},function(response){
-            var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Inserting college information to college info"
+            generateQuery(data,title);
         });
     });
     $("#btn2").click(function(){
-        $.get("/q3",{},function(response){
+        $.get("/q2",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Getting scholarship name and amt for UC Merced"
+            generateQuery(data,title);
         });
     });
     $("#btn3").click(function(){
-        $.get("/q4",{},function(response){
+        $.get("/q3",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Get number of incoming students in UC Merced"
+            generateQuery(data,title);
         });
     });
     $("#btn4").click(function(){
-        $.get("/q5",{},function(response){
+        $.get("/q4",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Which city has the most expensive rent"
+            generateQuery(data,title);
         });
     });
     $("#btn5").click(function(){
-        $.get("/q6",{},function(response){
+        $.get("/q5",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "What college has the highest attendance"
+            generateQuery(data,title);
         });
     });
     $("#btn6").click(function(){
-        $.get("/q7",{},function(response){
+        $.get("/q6",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Find grants for Engineering schools"
+            generateQuery(data,title);
         });
     });
     $("#btn7").click(function(){
-        $.get("/q8",{},function(response){
+        $.get("/q7",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Find the highest scholarship in terms of money"
+            generateQuery(data,title);
         });
     });
     $("#btn8").click(function(){
-        $.get("/q9",{},function(response){
+        $.get("/q8",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Average GPA of top 3 universities"
+            generateQuery(data,title);
         });
     });
     $("#btn9").click(function(){
-        $.get("/q10",{},function(response){
+        $.get("/q9",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Number of majors offered by each university"
+            generateQuery(data,title);
         });
     });
     $("#btn10").click(function(){
-        $.get("/q11",{},function(response){
+        $.get("/q10",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Find how many different types of scholarships are offered in the U.S"
+            generateQuery(data,title);
         });
     });
     $("#btn11").click(function(){
-        $.get("/q12",{},function(response){
+        $.get("/q11",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Find all the transfer students with gpa greater than 3.0 and engineering major"
+            generateQuery(data,title);
         });
     });
     $("#btn12").click(function(){
-        $.get("/q13",{},function(response){
+        $.get("/q12",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "Delete tuples in scholarships less than 1000"
+            generateQuery(data,title);
         });
     });
     $("#btn13").click(function(){
-        $.get("/q14",{},function(response){
+        $.get("/q13",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "increase california rents by 10%"
+            generateQuery(data,title);
         });
     });
     $("#btn14").click(function(){
-        $.get("/q15",{},function(response){
+        $.get("/q14",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "insert new scholarship"
+            generateQuery(data,title);
         });
     });
     $("#btn15").click(function(){
-        $.get("/q16",{},function(response){
+        $.get("/q15",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "find all the female incoming and transfer students"
+            generateQuery(data,title);
         });
     });
     $("#btn16").click(function(){
-        $.get("/q17",{},function(response){
+        $.get("/q16",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "select colleges outside of california"
+            generateQuery(data,title);
         });
     });
     $("#btn17").click(function(){
-        $.get("/q18",{},function(response){
+        $.get("/q17",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "how many students does each major has?"
+            generateQuery(data,title);
         });
     });
     $("#btn18").click(function(){
-        $.get("/q19",{},function(response){
+        $.get("/q18",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "delete  incoming students if they enrolled in 2019"
+            generateQuery(data,title);
         });
     });
     $("#btn19").click(function(){
+        $.get("/q19",{},function(response){
+            var data = JSON.parse(response)
+            title = "find BS majors"
+            generateQuery(data,title);
+        });
+    });
+    $("#btn20").click(function(){
         $.get("/q20",{},function(response){
             var data = JSON.parse(response)
-            createGrid1(data);
+            title = "find all colleges with gender ratio higher than 0.6 and all offered majors gender ratio above 0.6"
+            generateQuery(data,title);
         });
     });
 });

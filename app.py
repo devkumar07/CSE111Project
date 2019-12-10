@@ -14,6 +14,7 @@ def init():
     output = json.dumps(get_main_table())
     return output
 
+
 @app.route('/q1')
 def q1():
     output = json.dumps(insert_college_info())
@@ -101,7 +102,7 @@ def q17():
 
 @app.route('/q18')
 def q18():
-    output = json.dumps(get_scholarship_merced())
+    output = json.dumps(delete_students_2019())
     return output
 
 @app.route('/q19')
